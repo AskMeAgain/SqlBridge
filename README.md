@@ -19,7 +19,7 @@ This bridge uses Jdbi, but could be easily adapted to jdbc only.
 
 ## Postman
 
-Create a folder and put the following code into the "Test" section. All SQL queries should be in a child of the folder.
+Create a folder in Postman and put the following code into the "Test" section. All SQL queries should be in a child of the folder.
 
 ```javascript
 var template = `
