@@ -7,7 +7,7 @@ Whenever you do a request, switch to the "Visualize" tab in the response to see 
 ## Installation
 
 This project is only a default Spring app. The important part can be found inside "SqlController.java". 
-Just copy this file into your project and provide a jdbi instance as bean and you are good to go.
+Just copy this file into your Spring project and provide a jdbi instance as bean and you are good to go.
 
 ## Usage
 
