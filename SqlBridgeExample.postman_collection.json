@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "24dd9bde-5ce9-415f-8538-ac6238a71f42",
+		"name": "SqlBridgeExampleCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Table",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "CREATE TABLE IF NOT EXISTS tasks (\n    task_id INT AUTO_INCREMENT PRIMARY KEY,\n    title VARCHAR(255) NOT NULL,\n    start_date DATE,\n    due_date DATE,\n    status TINYINT NOT NULL,\n    priority TINYINT NOT NULL,\n    description TEXT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n)  ENGINE=INNODB;\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/execute",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"execute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "INSERT INTO tasks2 (title,status,priority) VALUES (\"title\",1, 1)",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/execute",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"execute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show table",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "SELECT * FROM tasks2",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var template = `",
+					"    <style>",
+					"    #transpose{",
+					"        display:none;",
+					"    }",
+					"    .truncated {",
+					"        white-space: nowrap;",
+					"        overflow: hidden;",
+					"        text-overflow: ellipsis;",
+					"        max-width: 20ch;",
+					"    }",
+					"    label[for=element-toggle] {",
+					"        cursor: pointer;",
+					"        color: red;",
+					"    }",
+					"    #element-toggle {",
+					"        display: none;",
+					"    }",
+					"    th:first-of-type{",
+					"        cursor: pointer;",
+					"    }",
+					"    td:first-of-type,",
+					"    th:first-of-type{",
+					"        padding-left:15px;",
+					"    }",
+					"    td,tr,th {",
+					"        text-align:center",
+					"    }",
+					"    div {",
+					"        width:auto;",
+					"        overflow: auto",
+					"    }",
+					"    table {",
+					"        table-layout: fixed; ",
+					"        width:auto;",
+					"    }",
+					"    #element-toggle:checked ~ #toggled-element {",
+					"        width:2000px;",
+					"    }",
+					"    #element-toggle:checked ~ #toggled-element tr {",
+					"        display: block;",
+					"        float: left;",
+					"        max-width: 17ch",
+					"    }",
+					"    #element-toggle:checked ~ #toggled-element th,",
+					"    #element-toggle:checked ~ #toggled-element td {",
+					"        display: block;",
+					"        max-width: 10ch",
+					"    }",
+					"    </style>",
+					"    <body onload=\"replaceCell();\">",
+					"        <div>",
+					"            <label id=\"transpose\" for=\"element-toggle\">Transpose</label>",
+					"            <input id=\"element-toggle\" type=\"checkbox\" />",
+					"            <table id=\"toggled-element\" bgcolor=\"#FFFFFF\">",
+					"                <tr>",
+					"                    {{#each header}}",
+					"                        <th>{{this}}</th>",
+					"                    {{/each}}",
+					"                </tr>",
+					"",
+					"                {{#each data}}",
+					"                    <tr>",
+					"                    {{#each this}}",
+					"                        {{#if this}}",
+					"                        <td class=\"truncated\" title=\"{{this}}\">{{this}}</td>",
+					"                        {{else}}",
+					"                        <td class=\"truncated\">#</td>",
+					"                        {{/if}}",
+					"                    {{/each}}",
+					"                    </tr>",
+					"                {{/each}}",
+					"            </table>",
+					"        </div>",
+					"    </body>",
+					"    <script>",
+					"    function replaceCell(){",
+					"        var row = document.getElementById(\"toggled-element\").rows[0];",
+					"        if(row.size > 1){",
+					"            var firstCell = row.cells[0];",
+					"            firstCell.innerText = \"∅\";",
+					"            firstCell.onclick = function(event){",
+					"                document.getElementById(\"transpose\").click();",
+					"            }",
+					"        }",
+					"    }",
+					"    </script>",
+					"`;",
+					"",
+					"var header = pm.response.json()[0];",
+					"var data = pm.response.json().slice(1);",
+					"",
+					"pm.visualizer.set(template, {",
+					"    header: header,",
+					"    data: data",
+					"});"
+				]
+			}
+		}
+	]
+}

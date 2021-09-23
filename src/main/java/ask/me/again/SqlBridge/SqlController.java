@@ -57,7 +57,7 @@ public class SqlController {
       }).stream()
       .collect(Collectors.toList()));
 
-    columnNames.add(0, "");
+    columnNames.add(0, "#");
     results.add(0, columnNames);
 
     return results;

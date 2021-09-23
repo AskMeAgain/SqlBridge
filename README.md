@@ -3,6 +3,7 @@
 This sql bridge allows you to simply execute sql via rest. This bridge is also compatible with Postman and allows for an easy display of the data.
 Whenever you do a request, switch to the "Visualize" tab in the response to see the data in a table.
 
+** This tool is not intended for production code **
 
 ## Installation
 
